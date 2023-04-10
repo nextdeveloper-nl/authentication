@@ -6,8 +6,8 @@ use Tests\TestCase;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use NextDeveloper\Authentication\Database\Filters\UserQueryFilter;
-use NextDeveloper\Authentication\Services\AbstractServices\AbstractUserService;
+use NextDeveloper\Account\Database\Filters\UserQueryFilter;
+use NextDeveloper\Account\Services\AbstractServices\AbstractUserService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use League\Fractal\Resource\Collection;
 
