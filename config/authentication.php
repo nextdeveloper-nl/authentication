@@ -12,7 +12,7 @@ return [
             'provider' => 'users',
         ],
     ],
-    'providers' => [
-        Laravel\Passport\PassportServiceProvider::class
-    ]
+//    'providers' => [
+//        \NextDeveloper\Authentication\PassportServiceProvider::class,
+//    ]
 ];

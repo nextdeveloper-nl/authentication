@@ -4,6 +4,7 @@ namespace NextDeveloper\Authentication;
 
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Log;
+use Laravel\Passport\Passport;
 use NextDeveloper\Commons\AbstractServiceProvider;
 
 /**
@@ -105,8 +106,12 @@ class AuthenticationServiceProvider extends AbstractServiceProvider {
      * @return void
      */
     protected function registerRoutes() {
+        Passport::ignoreRoutes();
+        Passport::enableImplicitGrant();
+
         if ( ! $this->app->routesAreCached()) {
             $this->app['router']
+                ->middleware( 'api' )
                 ->namespace('NextDeveloper\Authentication\Http\Controllers')
                 ->group(__DIR__.DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'api.routes.php');
         }
