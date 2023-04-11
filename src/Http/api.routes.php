@@ -4,7 +4,9 @@
 Route::prefix('authentication')->group(function() {
     Route::prefix('oauth')->group(function() {
         Route::post('/token', 'AccessTokenController@issueToken');
-        Route::middleware('api')->get('/personal-access-tokens', 'PersonalAccessTokenController@forUser');
+
+        Route::middleware('api')
+            ->get('/personal-access-tokens', 'PersonalAccessTokenController@forUser');
     });
 
     Route::prefix('user')->group(function () {

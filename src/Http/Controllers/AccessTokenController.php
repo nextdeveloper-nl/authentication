@@ -54,6 +54,8 @@ class AccessTokenController
             );
         });
 
+        //  Manipulasyon yapacağız.
+
         return $response;
     }
 }
