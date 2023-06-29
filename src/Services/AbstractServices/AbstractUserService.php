@@ -4,9 +4,9 @@ namespace NextDeveloper\Authentication\Services\AbstractServices;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use NextDeveloper\Authentication\Database\Models\User;
-use NextDeveloper\Authentication\Database\Filters\UserQueryFilter;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;;
+use NextDeveloper\Account\Database\Models\User;
+use NextDeveloper\Account\Database\Filters\UserQueryFilter;
 
 use NextDeveloper\Authentication\Events\User\UserCreatedEvent;
 use NextDeveloper\Authentication\Events\User\UserCreatingEvent;

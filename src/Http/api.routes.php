@@ -13,4 +13,10 @@ Route::prefix('authentication')->group(function() {
     });
 
 //!APPENDHERE
+  
+    Route::prefix('social-login')->middleware('web')->group(function() {
+        Route::get('/{provider}','SocialLoginController@socialLogin');
+        Route::get('/{provider}/redirect','SocialLoginController@socialLoginRedirect');
+    });
+
 });
