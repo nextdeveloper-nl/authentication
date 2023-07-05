@@ -19,6 +19,16 @@ return [
         'scrypt',
         'bcrypt',
         'md5'
+    ],
+
+    //  WARNING: Do not edit here, since this configuration section is edited by the module
+    'login_mechanisms'  =>  [
+
+    ],
+
+    //  WARNING: Do not edit here, since this configuration section is edited by the module
+    'twofa_mechanisms'  =>  [
+
     ]
 
 //    'providers' => [

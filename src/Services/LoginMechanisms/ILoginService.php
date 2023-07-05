@@ -18,7 +18,7 @@ namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
 interface ILoginService
 {
 
-    public function __construct($loginTo, $username, $password);
+    public function __construct($configuration, $loginData);
 
     /**
      * @return bool

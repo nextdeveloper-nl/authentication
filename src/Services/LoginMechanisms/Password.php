@@ -2,7 +2,7 @@
 
 namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
 
-class Ldap implements ILoginService
+class Password implements ILoginService
 {
     public function attempt()
     {
