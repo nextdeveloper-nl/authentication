@@ -1,0 +1,388 @@
+<?php
+
+namespace NextDeveloper\Authentication\Tests\Database\Models;
+
+use Tests\TestCase;
+use GuzzleHttp\Client;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+use NextDeveloper\Authentication\Database\Filters\AuthenticationLoginLogQueryFilter;
+use NextDeveloper\Authentication\Services\AbstractServices\AbstractAuthenticationLoginLogService;
+use Illuminate\Pagination\LengthAwarePaginator;
+use League\Fractal\Resource\Collection;
+
+trait AuthenticationLoginLogTestTraits
+{
+    public $http;
+
+    /**
+    *   Creating the Guzzle object
+    */
+    public function setupGuzzle()
+    {
+        $this->http = new Client([
+            'base_uri'  =>  '127.0.0.1:8000'
+        ]);
+    }
+
+    /**
+    *   Destroying the Guzzle object
+    */
+    public function destroyGuzzle()
+    {
+        $this->http = null;
+    }
+
+    public function test_http_authenticationloginlog_get()
+    {
+        $this->setupGuzzle();
+        $response = $this->http->request(
+            'GET',
+            '/authentication/authenticationloginlog',
+            ['http_errors' => false]
+        );
+
+        $this->assertContains($response->getStatusCode(), [
+            Response::HTTP_OK,
+            Response::HTTP_NOT_FOUND
+        ]);
+    }
+
+    public function test_http_authenticationloginlog_post()
+    {
+        $this->setupGuzzle();
+        $response = $this->http->request('POST', '/authentication/authenticationloginlog', [
+            'form_params'   =>  [
+                    ],
+                ['http_errors' => false]
+            ]
+        );
+
+        $this->assertEquals($response->getStatusCode(), Response::HTTP_OK);
+    }
+
+    /**
+    * Get test
+    *
+    * @return bool
+    */
+    public function test_authenticationloginlog_model_get()
+    {
+        $result = AbstractAuthenticationLoginLogService::get();
+
+        $this->assertIsObject($result, Collection::class);
+    }
+
+    public function test_authenticationloginlog_get_all()
+    {
+        $result = AbstractAuthenticationLoginLogService::getAll();
+
+        $this->assertIsObject($result, Collection::class);
+    }
+
+    public function test_authenticationloginlog_get_paginated()
+    {
+        $result = AbstractAuthenticationLoginLogService::get(null, [
+            'paginated' =>  'true'
+        ]);
+
+        $this->assertIsObject($result, LengthAwarePaginator::class);
+    }
+
+    public function test_authenticationloginlog_event_retrieved_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogRetrievedEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_created_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogCreatedEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_creating_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogCreatingEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_saving_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogSavingEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_saved_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogSavedEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_updating_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogUpdatingEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_updated_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogUpdatedEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_deleting_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogDeletingEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_deleted_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogDeletedEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_restoring_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogRestoringEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_restored_without_object()
+    {
+        try {
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogRestoredEvent() );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function test_authenticationloginlog_event_retrieved_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogRetrievedEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_created_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogCreatedEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_creating_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogCreatingEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_saving_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogSavingEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_saved_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogSavedEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_updating_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogUpdatingEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_updated_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogUpdatedEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_deleting_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogDeletingEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_deleted_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogDeletedEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_restoring_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogRestoringEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    public function test_authenticationloginlog_event_restored_with_object()
+    {
+        try {
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::first();
+
+            event( new \NextDeveloper\Authentication\Events\AuthenticationLoginLog\AuthenticationLoginLogRestoredEvent($model) );
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function test_authenticationloginlog_event_created_at_filter_start()
+    {
+        try {
+            $request = new Request([
+                'created_atStart'  =>  now()
+            ]);
+
+            $filter = new AuthenticationLoginLogQueryFilter($request);
+
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::filter($filter)->first();
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function test_authenticationloginlog_event_created_at_filter_end()
+    {
+        try {
+            $request = new Request([
+                'created_atEnd'  =>  now()
+            ]);
+
+            $filter = new AuthenticationLoginLogQueryFilter($request);
+
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::filter($filter)->first();
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function test_authenticationloginlog_event_created_at_filter_start_and_end()
+    {
+        try {
+            $request = new Request([
+                'created_atStart'  =>  now(),
+                'created_atEnd'  =>  now()
+            ]);
+
+            $filter = new AuthenticationLoginLogQueryFilter($request);
+
+            $model = \NextDeveloper\Authentication\Database\Models\AuthenticationLoginLog::filter($filter)->first();
+        } catch (\Exception $e) {
+            $this->assertFalse(false, $e->getMessage());
+        }
+
+        $this->assertTrue(true);
+    }
+    // EDIT AFTER HERE - WARNING: ABOVE THIS LINE MAY BE REGENERATED AND YOU MAY LOSE CODE
+}

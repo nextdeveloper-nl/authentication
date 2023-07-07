@@ -11,6 +11,8 @@
 namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
 
 
+use NextDeveloper\Accounts\Database\Models\User;
+
 /**
  * Interface ILoginService
  * @package PlusClouds\Account\Common\Services\OAuth2
@@ -23,6 +25,15 @@ interface ILoginService
     /**
      * @return bool
      */
-    public function attempt();
+    public function attempt(array $loginData);
 
+    /**
+     * @return null
+     */
+    public function generatePassword();
+
+    /**
+     * @return mixed
+     */
+    public function create(User $user);
 }

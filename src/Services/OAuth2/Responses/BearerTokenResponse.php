@@ -28,10 +28,10 @@ class BearerTokenResponse implements \League\OAuth2\Server\ResponseTypes\Respons
 
         return [
             'account' => [
-                'id'   => $account->id_ref,
+                'id'   => $account->uuid,
                 'name' => $account->name,
                 'user' => [
-                    'id'       => $user->id_ref,
+                    'id'       => $user->uuid,
                     'fullname' => $user->fullname,
                     'email'    => $user->email,
                     'username' => $user->username,
