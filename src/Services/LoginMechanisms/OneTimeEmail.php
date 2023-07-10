@@ -5,7 +5,7 @@ namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
 use NextDeveloper\Accounts\Database\Models\User;
 use NextDeveloper\Authentication\Database\Models\AuthenticationLoginMechanism;
 
-class OneTimeEmail implements ILoginService
+class OneTimeEmail extends AbstractLogin implements ILoginService
 {
     /**
      * Here we will create one time email type of login mechanism. To do that we need to first check if we have
@@ -17,6 +17,8 @@ class OneTimeEmail implements ILoginService
      */
     public function create(User $user) : AuthenticationLoginMechanism
     {
+        $mechanismName = self::getName($this);
+
         /*
          * 1) Check if the OneTimeEmail mechanism exists for user
          * 2) If exists, return that mechanism
@@ -32,7 +34,10 @@ class OneTimeEmail implements ILoginService
      */
     public function generatePassword(AuthenticationLoginMechanism $mechanism) : string
     {
-
+        /**
+         * For this service we will be sending an email to the user so that the user knows his/her password for the
+         * login.
+         */
     }
 
     /**
