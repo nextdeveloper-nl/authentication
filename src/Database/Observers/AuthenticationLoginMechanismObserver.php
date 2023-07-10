@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class AuthenticationUserLoginObserver
+ * Class AuthenticationLoginMechanismObserver
  * @package NextDeveloper\Authentication\Database\Observers
  */
-class AuthenticationUserLoginObserver
+class AuthenticationLoginMechanismObserver
 {
     /**
     * Triggered when a new record is retrieved.

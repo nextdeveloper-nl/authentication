@@ -12,6 +12,7 @@ namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
 
 
 use NextDeveloper\Accounts\Database\Models\User;
+use NextDeveloper\Authentication\Database\Models\AuthenticationLoginMechanism;
 
 /**
  * Interface ILoginService
@@ -19,21 +20,31 @@ use NextDeveloper\Accounts\Database\Models\User;
  */
 interface ILoginService
 {
-
-    public function __construct($configuration, $loginData);
+    /**
+     * Here we check if the user credentials are correct. Even if the credentials are correct or not we will log
+     * this attempt.
+     *
+     * @param AuthenticationLoginMechanism $mechanism
+     * @param array $loginData
+     * @return true
+     */
+    public function attempt(AuthenticationLoginMechanism $mechanism, array $loginData);
 
     /**
-     * @return bool
+     * Generates a password and updates the login mechanism objects
+     *
+     * @param AuthenticationLoginMechanism $mechanism
+     * @return string
      */
-    public function attempt(array $loginData);
+    public function generatePassword(AuthenticationLoginMechanism $mechanism);
 
     /**
-     * @return null
+     * Here we will create one time email type of login mechanism. To do that we need to first check if we have
+     * the mechanism already. To do that we will check the mechanism with user_id. If the mechanism is already
+     * created we will return the mechanism, if not we will create and return the mechanism.
+     *
+     * @param User $user
+     * @return AuthenticationLoginMechanism
      */
-    public function generatePassword();
-
-    /**
-     * @return mixed
-     */
-    public function create(User $user);
+    public function create(User $user) : AuthenticationLoginMechanism;
 }

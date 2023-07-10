@@ -1,20 +1,20 @@
 <?php
 
-namespace NextDeveloper\Authentication\Events\AuthenticationUserLogin;
+namespace NextDeveloper\Authentication\Events\AuthenticationLoginMechanism;
 
 use Illuminate\Queue\SerializesModels;
-use NextDeveloper\Authentication\Database\Models\AuthenticationUserLogin;
+use NextDeveloper\Authentication\Database\Models\AuthenticationLoginMechanism;
 
 /**
- * Class AuthenticationUserLoginSavingEvent
+ * Class AuthenticationLoginMechanismRestoringEvent
  * @package NextDeveloper\Authentication\Events
  */
-class AuthenticationUserLoginSavingEvent
+class AuthenticationLoginMechanismRestoringEvent
 {
     use SerializesModels;
 
     /**
-     * @var AuthenticationUserLogin
+     * @var AuthenticationLoginMechanism
      */
     public $_model;
 
@@ -23,7 +23,7 @@ class AuthenticationUserLoginSavingEvent
      */
     protected $timestamp = null;
 
-    public function __construct(AuthenticationUserLogin $model = null) {
+    public function __construct(AuthenticationLoginMechanism $model = null) {
         $this->_model = $model;
     }
 

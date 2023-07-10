@@ -22,7 +22,7 @@ class AuthenticationTwoFa extends Model
 
     public $timestamps = true;
 
-    protected $table = 'authentication_two_fa';
+    protected $table = ' authentication_two_fa';
 
 
     /**

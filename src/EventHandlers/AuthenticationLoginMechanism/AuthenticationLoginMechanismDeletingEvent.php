@@ -1,15 +1,15 @@
 <?php
 
-namespace NextDeveloper\Authentication\EventHandlers\AuthenticationUserLogin;
+namespace NextDeveloper\Authentication\EventHandlers\AuthenticationLoginMechanism;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 /**
- * Class AuthenticationUserLoginCreatedEvent
+ * Class AuthenticationLoginMechanismDeletingEvent
  * @package PlusClouds\Account\Handlers\Events
  */
-class AuthenticationUserLoginCreatedEvent implements ShouldQueue
+class AuthenticationLoginMechanismDeletingEvent implements ShouldQueue
 {
     use InteractsWithQueue;
 

@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use NextDeveloper\Commons\Database\Traits\Filterable;
-use NextDeveloper\Authentication\Database\Observers\AuthenticationUserLoginObserver;
+use NextDeveloper\Authentication\Database\Observers\AuthenticationLoginMechanismObserver;
 use NextDeveloper\Commons\Database\Traits\UuidId;
 
 /**
- * Class AuthenticationUserLogin.
+ * Class AuthenticationLoginMechanism.
  *
  * @package NextDeveloper\Authentication\Database\Models
  */
-class AuthenticationUserLogin extends Model
+class AuthenticationLoginMechanism extends Model
 {
     use Filterable, UuidId;
     use SoftDeletes;
@@ -22,7 +22,7 @@ class AuthenticationUserLogin extends Model
 
     public $timestamps = true;
 
-    protected $table = 'authentication_user_logins';
+    protected $table = ' authentication_login_mechanisms';
 
 
     /**
@@ -49,15 +49,16 @@ class AuthenticationUserLogin extends Model
      * @var array
      */
     protected $casts = [
-        'id'           => 'integer',
-		'uuid'         => 'string',
-		'user_id'      => 'integer',
-		'login_client' => 'string',
-		'login_type'   => 'string',
-		'is_latest'    => 'boolean',
-		'created_at'   => 'datetime',
-		'updated_at'   => 'datetime',
-		'deleted_at'   => 'datetime',
+        'id'              => 'integer',
+		'uuid'            => 'string',
+		'user_id'         => 'integer',
+		'login_client'    => 'string',
+		'login_mechanism' => 'string',
+		'is_latest'       => 'boolean',
+		'is_default'      => 'boolean',
+		'created_at'      => 'datetime',
+		'updated_at'      => 'datetime',
+		'deleted_at'      => 'datetime',
     ];
 
     /**
@@ -90,7 +91,7 @@ class AuthenticationUserLogin extends Model
         parent::boot();
 
         //  We create and add Observer even if we wont use it.
-        parent::observe(AuthenticationUserLoginObserver::class);
+        parent::observe(AuthenticationLoginMechanismObserver::class);
     }
 
     // EDIT AFTER HERE - WARNING: ABOVE THIS LINE MAY BE REGENERATED AND YOU MAY LOSE CODE
