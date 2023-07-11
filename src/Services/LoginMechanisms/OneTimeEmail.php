@@ -1,6 +1,6 @@
 <?php
 
-namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
+namespace NextDeveloper\Authentication\Services\LoginMechanisms;
 
 use NextDeveloper\Accounts\Database\Models\User;
 use NextDeveloper\Authentication\Database\Models\AuthenticationLoginMechanism;
@@ -24,6 +24,25 @@ class OneTimeEmail extends AbstractLogin implements ILoginService
          * 2) If exists, return that mechanism
          * 3) If not exists create a new mechanism and return the mechanism
          */
+
+        $latestMechanism = AuthenticationLoginMechanism::where([
+            'user_id'               => $user->id,
+            'login_mechanism'       => $mechanismName,
+            'is_latest'             => 1
+        ])->latest()->first();
+
+        if (!$latestMechanism) {
+
+            $newMechanism = AuthenticationLoginMechanism::create([
+                'user_id'          => $user->id,
+                'login_mechanism'  => $mechanismName,
+               ]);
+
+            return $newMechanism;
+        }
+
+        return $latestMechanism;
+
     }
 
     /**
@@ -38,6 +57,16 @@ class OneTimeEmail extends AbstractLogin implements ILoginService
          * For this service we will be sending an email to the user so that the user knows his/her password for the
          * login.
          */
+
+        $password = random_int(100000, 999999);
+
+        $updateMechanismLoginData = $mechanism->update([
+            'login_data' => json_encode(["password" => bcrypt($password)])
+        ]);
+
+        // TODO: Send email to the user with the password
+
+        return $password;
     }
 
     /**
