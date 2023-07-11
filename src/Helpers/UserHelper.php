@@ -3,6 +3,7 @@
 namespace NextDeveloper\Authentication\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use NextDeveloper\Account\Database\Models\User;
 
 class UserHelper
@@ -14,8 +15,10 @@ class UserHelper
      */
     public static function me() :User {
         /**
-         * This will return the User object of the loggen in user
+         * This will return the User object of the logged in user
          */
+
+        return Auth::guard( 'api' )->user();
     }
 
     /**
