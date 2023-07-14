@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
+namespace NextDeveloper\Authentication\Services\LoginMechanisms;
 
 
 use NextDeveloper\Accounts\Database\Models\User;
@@ -42,7 +42,7 @@ class AbstractLogin
     public static function getName($obj) : string
     {
         $name = class_basename($obj);
-
-        dd($name);
+        
+        return $name;
     }
 }

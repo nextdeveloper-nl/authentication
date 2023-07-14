@@ -22,7 +22,7 @@ class AuthenticationLoginMechanism extends Model
 
     public $timestamps = true;
 
-    protected $table = ' authentication_login_mechanisms';
+    protected $table = 'authentication_login_mechanisms';
 
 
     /**

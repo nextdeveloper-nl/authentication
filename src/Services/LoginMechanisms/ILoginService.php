@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace NextDeveloper\Authentication\Services\OAuth2\LoginMechanisms;
+namespace NextDeveloper\Authentication\Services\LoginMechanisms;
 
 
 use NextDeveloper\Accounts\Database\Models\User;
