@@ -11,14 +11,19 @@
 namespace NextDeveloper\Authentication\Services\LoginMechanisms;
 
 
-use NextDeveloper\Accounts\Database\Models\User;
+use DateInterval;
+use Illuminate\Support\Facades\DB;
+use League\OAuth2\Server\Grant\AbstractGrant;
+use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 use NextDeveloper\Authentication\Database\Models\AuthenticationLoginMechanism;
+use Psr\Http\Message\ServerRequestInterface;
+use function Symfony\Component\String\s;
 
 /**
  * Interface ILoginService
  * @package PlusClouds\Account\Common\Services\OAuth2
  */
-class AbstractLogin
+class AbstractLogin extends AbstractGrant
 {
     public $className;
 
@@ -44,5 +49,30 @@ class AbstractLogin
         $name = class_basename($obj);
         
         return $name;
+    }
+
+    public function getIdentifier()
+    {
+        throw new \Exception('This authentication grant type is not implemented!!');
+        // TODO: Implement getIdentifier() method.
+    }
+
+    public function respondToAccessTokenRequest(ServerRequestInterface $request, ResponseTypeInterface $responseType, DateInterval $accessTokenTTL)
+    {
+        throw new \Exception('This authentication grant type is not implemented!!');
+        // TODO: Implement respondToAccessTokenRequest() method.
+    }
+
+    /**
+     * This function will remove old tokens so that the customer wont be using the old access tokens
+     *
+     * @param $client
+     * @param $identifier
+     * @return void
+     */
+    public function removeOldTokens($clientId, $identifier) {
+        $sql = 'delete from oauth_access_tokens where id != "' . $identifier . '" and client_id = "' . $clientId . '";';
+
+        DB::delete($sql);
     }
 }

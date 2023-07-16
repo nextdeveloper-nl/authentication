@@ -20,6 +20,8 @@ use NextDeveloper\Authentication\Database\Models\AuthenticationLoginMechanism;
  */
 interface ILoginService
 {
+    const LOGINNAME = 'DEFAULT';
+
     /**
      * Here we check if the user credentials are correct. Even if the credentials are correct or not we will log
      * this attempt.
@@ -28,7 +30,7 @@ interface ILoginService
      * @param array $loginData
      * @return true
      */
-    public function attempt(AuthenticationLoginMechanism $mechanism, array $loginData);
+    public function attempt(AuthenticationLoginMechanism $mechanism, array $loginData) : bool;
 
     /**
      * Generates a password and updates the login mechanism objects
@@ -36,7 +38,7 @@ interface ILoginService
      * @param AuthenticationLoginMechanism $mechanism
      * @return string
      */
-    public function generatePassword(AuthenticationLoginMechanism $mechanism);
+    public function generatePassword(AuthenticationLoginMechanism $mechanism) : string;
 
     /**
      * Here we will create one time email type of login mechanism. To do that we need to first check if we have

@@ -4,6 +4,9 @@ namespace NextDeveloper\Authentication;
 
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Log;
+use Laravel\Passport\Passport;
+use League\OAuth2\Server\AuthorizationServer;
+use NextDeveloper\Authentication\Services\LoginMechanisms\OneTimeEmail;
 use NextDeveloper\Commons\AbstractServiceProvider;
 
 /**
@@ -34,6 +37,13 @@ class AuthenticationServiceProvider extends AbstractServiceProvider {
         $this->bootModelBindings();
         $this->bootEvents();
         $this->bootLogger();
+        $this->bootGrants();
+    }
+
+    public function bootGrants() {
+        $oneTimeEmail = new OneTimeEmail();
+
+        app(AuthorizationServer::class)->enableGrantType( $oneTimeEmail, Passport::tokensExpireIn() );
     }
 
     /**

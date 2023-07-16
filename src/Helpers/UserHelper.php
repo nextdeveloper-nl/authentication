@@ -5,6 +5,7 @@ namespace NextDeveloper\Authentication\Helpers;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use NextDeveloper\Account\Database\Models\User;
+use NextDeveloper\Accounts\Database\Models\Account;
 
 class UserHelper
 {
@@ -19,6 +20,14 @@ class UserHelper
          */
 
         return Auth::guard( 'api' )->user();
+    }
+
+    public static function currentAccount() : Account
+    {
+        //  Will change
+        $account = Account::where('owner_id', self::me()->id)->first();
+
+        return $account;
     }
 
     /**
